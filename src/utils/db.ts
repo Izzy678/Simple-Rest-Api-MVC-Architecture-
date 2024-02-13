@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { env } from '../../config/config';
+import { env } from '../config/config';
 
 
 export function connect() {

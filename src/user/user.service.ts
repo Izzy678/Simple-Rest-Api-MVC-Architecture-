@@ -1,8 +1,8 @@
-import { User, userSchema, userModel } from "../model/user.model";
-import { CreateUserDto, updateUserProfile } from "../Dto/user.dto";
+import { User, userModel } from "./user.model";
+import { CreateUserDto, updateUserProfile } from "./user.dto";
 import bcrypt from 'bcrypt';
-import { ConflictException, NotFoundException } from "../../utils/error/httpException.error";
-import { TokenDto } from "../../token/token.dto.ts/token.dto";
+import { ConflictException, NotFoundException } from "../utils/error/httpException.error";
+import { TokenDto } from "../token/token.dto";
 
 export class UserService {
 

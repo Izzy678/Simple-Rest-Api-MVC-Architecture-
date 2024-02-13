@@ -1,8 +1,8 @@
 import { Router } from "express";
-import { UserController } from "../controller/user.contoller";
-import { joiValidateMiddleware } from "../../middleware/validateResource";
-import { createUserValidator, updateUserValidator } from "../validator/user.validator";
-import { requireUser } from "../../middleware/requireUser";
+import { UserController } from "./user.contoller";
+import { joiValidateMiddleware } from "../middleware/validateResource";
+import { createUserValidator, updateUserValidator } from "./user.validator";
+import { requireUser } from "../middleware/requireUser";
 
 export const UserRouter = Router();
 export const userRouterBasePath = '/api/users/';

@@ -1,5 +1,5 @@
-import { CreateUserDto, updateUserProfile } from "../Dto/user.dto";
-import { UserService } from "../service/user.service";
+import { CreateUserDto, updateUserProfile } from "./user.dto";
+import { UserService } from "./user.service";
 import { NextFunction, Request, Router, Response } from "express";
 
 
