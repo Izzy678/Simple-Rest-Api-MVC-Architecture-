@@ -1,17 +1,16 @@
 import { TokenService } from "../../token/service/token.service";
 import { UserService } from "../../user/service/user.service";
-import { BadRequestException, NotFoundException } from "../../utils/error/notFound.error";
+import { BadRequestException, NotFoundException } from "../../utils/error/httpException.error";
 import { AuthDto } from "../dto/auth.dto";
 
 export class AuthService {
-
-    constructor(private readonly userService: UserService,
-        private readonly tokenService: TokenService
-    ) { }
-
+   private readonly userService = new UserService();
+   private readonly tokenService = new TokenService();
+   
     async signIn(authDto: AuthDto) {
-        const user = await this.userService.findUserByEmail(authDto.email ?? "");
-        if (!user) throw new BadRequestException("Invalid username or password");
+
+        const user = await this.userService.findUserByEmail(authDto.email);
+        if (!user) throw new BadRequestException("Invalid email or password");
 
         //compare password
         const isValid = await this.userService.comparePassword(user.password, authDto.password);
@@ -20,18 +19,22 @@ export class AuthService {
         //generate token 
         const authToken = this.tokenService.generateAuthToken({
             email: user.email,
-            userId: String(user._id),// as unknown as string,
+            user: user._id as unknown as string,
             name: user.name
         })
 
         const refreshToken = this.tokenService.generateRefreshToken({
             email: user.email,
-            userId: String(user._id),// as unknown as string,
+            user: user._id as unknown as string,
             name: user.name
-        })
+        });
       
         return {
-            user,
+            user:{
+            userId:user._id,
+            name:user.name,
+            email:user.email
+            },
             authToken,
             refreshToken
         }

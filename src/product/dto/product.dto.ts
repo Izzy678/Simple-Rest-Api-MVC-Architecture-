@@ -1,18 +1,14 @@
-export class CreateProductDto {
-    user: string
+import { Interface } from "readline"
+
+export interface CreateProductDto {
     title: string
     description: string
     price: number
     image: string
 }
 
-export class ProductParams {
-    productId:string
-}
+export interface updateProductDto extends CreateProductDto {}
 
-export class ProductQuery {
-    user?: string
-    title?: string
-    description?: string
-    price?: number
+export interface ProductParams  {
+    productId:string
 }

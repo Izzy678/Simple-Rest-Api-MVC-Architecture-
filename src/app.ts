@@ -1,7 +1,7 @@
 import express from 'express';
 import { Request,Response } from 'express';
 import { env } from './config/config';
-import { connect } from './utils/db';
+import { connect } from './utils/Database/db';
 import { routes } from './routes';
 import { errorHandler } from './middleware/errorHandler';
 import { deserializeToken } from './middleware/token.middleware';

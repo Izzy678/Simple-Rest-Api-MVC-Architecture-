@@ -1,8 +1,8 @@
-import { User } from "../model/user.model";
-
-export class CreateUserDto {
-    name?: string
-    password?: string
-    email?: string
-    confirmPassword?: string
+export interface CreateUserDto {
+    name: string
+    password: string
+    email: string
+    confirmPassword: string
 }
+
+export type updateUserProfile = Pick<CreateUserDto,"name"|"email">

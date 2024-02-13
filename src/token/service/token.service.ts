@@ -3,7 +3,7 @@ import jwt, { Jwt } from "jsonwebtoken";
 import { env } from "../../config/config";
 import { User } from "../../user/model/user.model";
 import { UserService } from "../../user/service/user.service";
-import { BadRequestException, NotFoundException, UnAuthorizedException } from "../../utils/error/notFound.error";
+import { BadRequestException, NotFoundException, UnAuthorizedException } from "../../utils/error/httpException.error";
 export class TokenService {
     private readonly JWT_TTL = env.JWT_TTL;
     private readonly REFRESH_TOKEN_TTL = env.REFRESH_TOKEN_TTL
@@ -20,7 +20,7 @@ export class TokenService {
 
     generateRefreshToken(tokenDto: TokenDto) {
         const refreshToken = jwt.sign({
-        userId:tokenDto.userId
+        user:tokenDto.user
         },this.SECRET_KEY,{
             expiresIn:this.REFRESH_TOKEN_TTL
         });
@@ -50,7 +50,7 @@ export class TokenService {
         if(!user) throw new NotFoundException("user does no exist");
 
         const tokenDto:TokenDto = {
-            userId:user._id as unknown as string,
+            user:user._id as unknown as string,
             name:user.name,
             email:user.email
         }

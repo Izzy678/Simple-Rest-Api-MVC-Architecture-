@@ -1,50 +1,42 @@
 import { FilterQuery, QueryOptions, UpdateQuery } from 'mongoose';
 import { TokenDto } from '../../token/token.dto.ts/token.dto';
-import { BadRequestException, NotFoundException } from '../../utils/error/notFound.error';
-import { CreateProductDto as CreateProductDto } from '../dto/product.dto';
+import { BadRequestException, NotFoundException } from '../../utils/error/httpException.error';
+import { CreateProductDto as CreateProductDto, ProductParams, updateProductDto } from '../dto/product.dto';
 import { Product, ProductModel } from '../model/product.model'
 export class ProductService {
 
-    async createProduct(createProductDto: CreateProductDto, { user }: { user: string }): Promise<Product> {
-        const product = await ProductModel.create({ createProductDto, user });
+    async createProduct(createProductDto: CreateProductDto,user:string): Promise<Product> {
+        const product = await ProductModel.create({ ...createProductDto, user});
         return product;
     }
 
-    async getProduct(query: FilterQuery<Product>): Promise<Product[]> {
-        const product = await ProductModel.find(query);
+    async getProducts(): Promise<Product[]> {
+        const product = await ProductModel.find();
+        if (product.length === 0) throw new NotFoundException("no product found");
         return product;
     }
 
-    async findOneProduct(query: FilterQuery<Product>, options: QueryOptions): Promise<Product> {
-        const product = await ProductModel.findOne(query, options);
+    async findOneProduct(productId: string): Promise<Product> {
+        const product = await ProductModel.findOne({ _id: productId });
         if (!product) throw new NotFoundException("product not found");
         return product;
     }
 
     async findAndUpdateProduct(
-        query: FilterQuery<Product>,
-        update: UpdateQuery<Product>,
-        options: QueryOptions = {new:true}
+        productId: string,
+        userId:string,
+        updateProduct: updateProductDto
     ): Promise<Product> {
-        const product = await ProductModel.findOneAndUpdate(query, update, options);
-        if (!product) throw new NotFoundException("product not found");
+        const product = await ProductModel.findOneAndUpdate({ _id: productId,user:userId }, updateProduct, { new: true });
+        if (!product) throw new NotFoundException("product to be updated not found");
         return product;
     }
 
     async deleteProduct(
-        query: FilterQuery<Product>,
+        productId: string,
+        user:string
     ) {
-        return await ProductModel.deleteOne(query);
+        return await ProductModel.deleteOne({ _id: productId ,user});
     }
-    // async getUserProduct({ user }: { user: string }): Promise<Product[]> {
-    //     const product = await ProductModel.find({ user });
-    //     if (product.length <= 0) throw new NotFoundException("no products found for this user");
-    //     return product;
-    // }
-
-    // async deleteProduct(productId: string) {
-    //     const product = await ProductModel.deleteOne({ _id: productId });
-    //     if (!product) throw new NotFoundException("product not found");
-    //     return product;
-    // }
+  
 }

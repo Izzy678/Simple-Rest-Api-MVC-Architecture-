@@ -2,22 +2,19 @@ import { TokenDto } from "../token/token.dto.ts/token.dto";
 import { Request, Response, NextFunction } from 'express'
 import { TokenService } from "../token/service/token.service";
 import { unknown } from "zod";
+import { BadRequestException } from "../utils/error/httpException.error";
 
 
 export async function deserializeToken(req: Request, res: Response, next: NextFunction) {
-    const accessToken = req.headers['authorization'];
-
+    if(!req.headers.authorization) return next();
+    const [bearer, accessToken] = req.headers['authorization'].split(' ');
     const refreshToken = req.headers['refresh-token'];
-
     try {
-        if (!accessToken) return next();
-
-        const decodedToken = new TokenService().verifyAuthToken(String(accessToken));
-
+        if (bearer !== "Bearer") throw new BadRequestException("Provide a bearer token");
+        const decodedToken = new TokenService().verifyAuthToken(accessToken);
         //store  decoded token in the res object
         res.locals.tokenData = decodedToken;
         next();
-
     }
     catch (error: any) {
 

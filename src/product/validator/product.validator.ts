@@ -1,21 +1,23 @@
 import joi from 'joi'
-import { BadRequestException } from '../../utils/error/notFound.error';
+import { BadRequestException } from '../../utils/error/httpException.error';
 import mongoose from 'mongoose';
 import { TypeOf } from 'zod';
+import {Request,Response, NextFunction } from 'express';
 
-const createProductValidator = joi.object({
+export const createProductValidator = joi.object({
     title:joi.string().required(),
     description:joi.string().required().custom((value:String)=>{
         const wordCount = value.split(' ').length;
         if(wordCount>120) throw new BadRequestException("description should not be more than 120");
         return value;
     }),
-    price:joi.string().required(),
+    price:joi.number().required(),
     image:joi.string().required(),
 })
 
-const params = joi.string().required().custom((objectId:string)=>{
+const id = joi.object().required().custom((objectId:string)=>{
     try {
+       console.log("objectId",objectId)
         const newValue = new mongoose.Types.ObjectId(objectId);
         return newValue;
       } catch (error) {
@@ -31,16 +33,24 @@ export const updateProductValidator = joi.object({
         if(wordCount>120) throw new BadRequestException("description should not be more than 120");
         return value;
     }),
-    price:joi.string(),
+    price:joi.number(),
     image:joi.string(),
-    productId:params
 })
 
-export const deleteProductValidator = params;
+export const deleteProductValidator = id;
 
-export const getProductValidator = params;
+export const getProductValidator = joi.object({
 
-
+  id:joi.custom((objectId:string)=>{
+    try {
+       console.log("objectId",objectId)
+        const newValue = new mongoose.Types.ObjectId(objectId);
+        return newValue;
+      } catch (error) {
+        throw new BadRequestException("Invalid ObjectId Parsed")
+      }
+})
+});
 
 
 

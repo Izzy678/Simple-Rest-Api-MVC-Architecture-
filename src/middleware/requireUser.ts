@@ -1,12 +1,12 @@
 import { Request, Response, NextFunction } from 'express'
 import { TokenService } from "../token/service/token.service";
-import { UnAuthorizedException } from '../utils/error/notFound.error';
+import { UnAuthorizedException } from '../utils/error/httpException.error';
 
 
-export function requireUser(req: Request, res: Response, next: NextFunction) {
-    const user = res.locals.user;
+export const requireUser = () => (req: Request, res: Response, next: NextFunction) => {
+    const tokenData = res.locals.tokenData;
     try {
-        if (!user) {
+        if (!tokenData) {
             throw new UnAuthorizedException("you are not authorized to access this endpoint");
         }
         next();

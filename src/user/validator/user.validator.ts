@@ -8,3 +8,9 @@ export const createUserValidator = joi.object({
 }).messages({
     'any.only': 'Passwords do not match',
 });
+
+
+export const updateUserValidator = joi.object({
+    name: joi.string(),
+    email: joi.string().email()
+});
