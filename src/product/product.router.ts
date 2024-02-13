@@ -1,9 +1,9 @@
 import { Router } from "express";
-import { ProductController } from "../controller/product.controller";
-import { joiValidateMiddleware } from "../../middleware/validateResource";
-import { createProductValidator, updateProductValidator } from "../validator/product.validator";
-import { requireUser } from "../../middleware/requireUser";
-import { validateObjectId } from "../../middleware/objectidValidator";
+import { ProductController } from "./product.controller";
+import { joiValidateMiddleware } from "../middleware/validateResource";
+import { createProductValidator, updateProductValidator } from "./product.validator";
+import { requireUser } from "../middleware/requireUser";
+import { validateObjectId } from "../middleware/objectidValidator";
 
 
 export const productRouterBasePath = '/api/products'

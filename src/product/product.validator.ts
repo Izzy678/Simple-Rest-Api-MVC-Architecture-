@@ -1,5 +1,5 @@
 import joi from 'joi'
-import { BadRequestException } from '../../utils/error/httpException.error';
+import { BadRequestException } from '../utils/error/httpException.error';
 import mongoose from 'mongoose';
 
 export const createProductValidator = joi.object({

@@ -1,9 +1,8 @@
-import { TokenDto } from "../token.dto.ts/token.dto";
-import jwt, { Jwt } from "jsonwebtoken";
-import { env } from "../../config/config";
-import { User } from "../../user/model/user.model";
-import { UserService } from "../../user/service/user.service";
-import { BadRequestException, NotFoundException, UnAuthorizedException } from "../../utils/error/httpException.error";
+import { TokenDto } from "../token/token.dto";
+import jwt from "jsonwebtoken";
+import { env } from "../config/config";
+import { UserService } from "../user/user.service";
+import { BadRequestException, NotFoundException } from "../utils/error/httpException.error";
 export class TokenService {
     private readonly JWT_TTL = env.JWT_TTL;
     private readonly REFRESH_TOKEN_TTL = env.REFRESH_TOKEN_TTL

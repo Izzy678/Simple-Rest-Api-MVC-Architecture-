@@ -1,7 +1,7 @@
 import { Router } from "express";
-import { AuthController } from "../controller/auth.controller";
-import { joiValidateMiddleware } from "../../middleware/validateResource";
-import { signInValidator } from "../validator/auth.validator";
+import { AuthController } from "./auth.controller";
+import { joiValidateMiddleware } from '../middleware/validateResource';
+import { signInValidator } from "./auth.validator";
 
 export const AuthRouter = Router();
 export const AuthRouterBasePath = '/api/auth/'

@@ -1,9 +1,7 @@
 
-import { AuthService } from "../service/auth.service";
-import { NextFunction, Request, Router, Response } from "express";
-import { AuthDto } from "../dto/auth.dto";
-import { joiValidateMiddleware } from "../../middleware/validateResource";
-import { signInValidator } from "../validator/auth.validator";
+import { AuthService } from "./auth.service";
+import { NextFunction, Request, Response } from "express";
+import { AuthDto } from "./auth.dto";
 
 export class AuthController {
     private readonly authService = new AuthService();

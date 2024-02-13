@@ -1,5 +1,4 @@
 import mongoose from "mongoose"
-
 export interface User{
     name: string
     password: string

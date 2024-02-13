@@ -1,7 +1,7 @@
-import { TokenService } from "../../token/service/token.service";
-import { UserService } from "../../user/service/user.service";
-import { BadRequestException, NotFoundException } from "../../utils/error/httpException.error";
-import { AuthDto } from "../dto/auth.dto";
+import { TokenService } from "../token/token.service";
+import { UserService } from "../user/user.service";
+import { BadRequestException, NotFoundException } from "../utils/error/httpException.error";
+import { AuthDto } from "./auth.dto";
 
 export class AuthService {
    private readonly userService = new UserService();

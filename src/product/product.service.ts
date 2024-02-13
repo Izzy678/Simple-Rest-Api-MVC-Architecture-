@@ -1,8 +1,6 @@
-import { FilterQuery, QueryOptions, UpdateQuery } from 'mongoose';
-import { TokenDto } from '../../token/token.dto.ts/token.dto';
-import { BadRequestException, NotFoundException } from '../../utils/error/httpException.error';
-import { CreateProductDto as CreateProductDto, ProductParams, updateProductDto } from '../dto/product.dto';
-import { Product, ProductModel } from '../model/product.model'
+import { NotFoundException } from '../utils/error/httpException.error';
+import { CreateProductDto as CreateProductDto, updateProductDto } from './product.dto';
+import { Product, ProductModel } from './product.model'
 export class ProductService {
 
     async createProduct(createProductDto: CreateProductDto,user:string): Promise<Product> {

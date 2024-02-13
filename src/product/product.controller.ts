@@ -1,8 +1,8 @@
 import { NextFunction, Request, Response } from "express";
-import { CreateProductDto, ProductParams, updateProductDto } from "../dto/product.dto";
-import { ProductService } from "../service/product.service";
-import { TokenDto } from "../../token/token.dto.ts/token.dto";
-import { NotFoundException } from "../../utils/error/httpException.error";
+import { CreateProductDto, ProductParams, updateProductDto } from "./product.dto";
+import { ProductService } from "./product.service";
+import { TokenDto } from "../token/token.dto";
+import { NotFoundException } from "../utils/error/httpException.error";
 
 export class ProductController {
     private readonly productService = new ProductService();

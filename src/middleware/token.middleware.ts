@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express'
-import { TokenService } from "../token/service/token.service";
+import { TokenService } from "../token/token.service";
 import { BadRequestException } from "../utils/error/httpException.error";
 
 
